@@ -61,7 +61,7 @@ class PostController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'duration' => $minutes,
-            'author_id' => 1 
+            'author_id' => Auth::id()
         ]);
 
         $model->tags()->attach([$request->tags]);

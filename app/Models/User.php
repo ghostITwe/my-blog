@@ -50,4 +50,29 @@ class User extends Authenticatable
     public function posts() {
         return $this->hasMany(Post::class, 'author_id');
     }
+
+    public function roles() {
+        return $this->belongsToMany(Role::class, 'user_roles');
+    }
+
+    public function hasRole($role): bool
+    {
+        return $this->roles->contains('name', $role);
+    }
+
+    public function hasAnyRole($roles): bool {
+        if (is_array($roles)) {
+            foreach($roles as $role) {
+                if ($this->hasRole($role)) {
+                    return true;
+                }
+            }
+        } else {
+            return $this->hasRole($roles);
+        }
+
+        return false;
+    }
+
+    
 }
