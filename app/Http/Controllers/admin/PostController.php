@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\CreatePostRequest;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -40,19 +40,8 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title' => 'required',
-            'description' => 'required',
-            'tags' => 'required'
-        ]);
-
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-
         $temp = 1500;
         $wordsLength = mb_strlen(strip_tags($request->description));
         $minutes = ceil($wordsLength / $temp);
@@ -73,8 +62,10 @@ class PostController extends Controller
      * Display the specified resource.
      */
     public function show(Post $post)
-    {
-        //
+    {   
+        return view('admin.post.show', [
+            'post' => $post
+        ]);
     }
 
     /**

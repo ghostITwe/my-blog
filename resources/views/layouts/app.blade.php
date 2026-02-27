@@ -7,6 +7,7 @@
     <title>Main</title>
 </head>
 <body>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <main>
         @yield('content')
     </main>

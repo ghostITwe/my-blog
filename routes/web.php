@@ -14,11 +14,12 @@ Route::middleware(['auth'])->group(function () {
     })->middleware('verified')->name('dashboard');
 
     Route::prefix('/admin')->middleware(['role:admin,editor'])->group(function () {
-        Route::prefix('posts')->group(function () {
-            Route::get('/', [PostController::class, 'index'])->name('admin.post.index');
-            Route::get('/create', [PostController::class, 'create'])->name('admin.post.create');
-            Route::post('/create', [PostController::class, 'store'])->name('admin.post.store');
-            Route::delete('/{post}', [PostController::class, 'destroy'])->name('admin.post.delete');
+        Route::prefix('posts')->name('admin.')->group(function () {
+            Route::get('/', [PostController::class, 'index'])->name('post.index');
+            Route::get('/{post}', [PostController::class, 'show'])->name('post.show');
+            Route::get('/create', [PostController::class, 'create'])->name('post.create');
+            Route::post('/create', [PostController::class, 'store'])->name('post.store');
+            Route::delete('/{post}', [PostController::class, 'destroy'])->name('post.delete');
         });
     });
 

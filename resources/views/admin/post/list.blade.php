@@ -6,7 +6,7 @@
             <span>{{ $post->author->name }}</span>
             <span>{{ $post->duration }}</span>
         </div>
-        <h4>{{ $post->title }}</h4>
+        <a href="{{ route('admin.post.show', ['post' => $post]) }}">{{ $post->title }}</a>
         <p>{{ $post->description }}</p>
     </article>
     <form action="{{ route('admin.post.delete', ['post' => $post]) }}" method="POST">
